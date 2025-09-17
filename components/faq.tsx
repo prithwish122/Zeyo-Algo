@@ -10,7 +10,7 @@ export default function FAQ() {
     {
       question: "Is Zeyo available for all blockchains?",
       answer:
-        "Zeyo currently supports the Core blockchain, with plans to expand to more privacy-focused chains. You can generate zero-knowledge proofs of your activity across all supported networks.",
+        "Zeyo currently supports the Algorand blockchain, with plans to expand to more privacy-focused chains. You can generate zero-knowledge proofs of your activity across all supported networks.",
     },
     {
       question: "How does zero-knowledge proof work?",
@@ -25,7 +25,7 @@ export default function FAQ() {
     {
       question: "What kind of activities can I prove?",
       answer:
-        "You can prove staking in Core, validator participation, token holdings, NFT ownership, and DeFi interactions — all without exposing your actual wallet or balances.",
+        "You can prove staking in Algorand, validator participation, token holdings, NFT ownership, and DeFi interactions — all without exposing your actual wallet or balances.",
     },
     {
       question: "Is customer support available?",
@@ -58,7 +58,7 @@ export default function FAQ() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-xl text-orange-200/80 font-sans"
           >
-            Got questions? We've got answers. Here’s what you need to know to start proving your Core activity privately.
+            Got questions? We've got answers. Here’s what you need to know to start proving your Algorand activity privately.
           </motion.p>
         </div>
 

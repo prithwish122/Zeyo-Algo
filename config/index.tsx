@@ -39,7 +39,7 @@ const customNetwork = defineChain({
   id: 1114,
   caipNetworkId: 'eip155:123456789',
   chainNamespace: 'eip155',
-  name: 'Core Testnet 2',
+  name: 'Algorand Testnet 2',
   nativeCurrency: {
     decimals: 18,
     name: 'CORE',
@@ -53,7 +53,7 @@ const customNetwork = defineChain({
   },
   blockExplorers: {
     default: {
-      name: 'Core Testnet Explorer',
+      name: 'Algorand Testnet Explorer',
       url: 'https://scan.test2.btcs.network/',
     },
   },

@@ -3,9 +3,9 @@ import { motion } from "motion/react"
 
 export default function TrustedBy() {
   const companies = [
-    "Core DAO",
-    "Core Validators",
-    "Core Stakers",
+    "Algorand DAO",
+    "Algorand Validators",
+    "Algorand Stakers",
     "Satoshi Plus Delegators",
     "SushiSwap",
     "Balancer",
