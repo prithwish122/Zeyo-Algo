@@ -3,7 +3,7 @@
 import type React from "react"
 import { useState } from "react"
 import { motion } from "motion/react"
-import { ArrowLeft, Loader2, Check, Star, TrendingUp } from "lucide-react"
+import { ArrowLeft, Loader2, Check, Star, TrendingUp, Award } from "lucide-react"
 import { useWallet } from "@txnlab/use-wallet-react"
 
 interface LogEntry {
@@ -276,7 +276,7 @@ const LogContainer: React.FC<{ logs: LogEntry[]; title: string }> = ({ logs, tit
                 <span className="text-xs text-gray-500 mt-1 min-w-[60px]">{log.timestamp}</span>
                 <span
                   className={`text-sm ${
-                    log.type === "success" ? "text-green-400" : log.type === "error" ? "text-red-400" : "text-gray-300"
+                    log.type === "success" ? "text-blue-400" : log.type === "error" ? "text-red-400" : "text-gray-300"
                   }`}
                 >
                   {log.message}
@@ -350,7 +350,7 @@ const ReputationScoreTable: React.FC<{ score: ReputationScore; data: ReputationD
     <div className="bg-white/5 border border-white/10 rounded-lg p-6">
       <div className="flex items-center justify-between mb-4">
         <h4 className="text-lg font-bold text-white">Reputation Score Breakdown</h4>
-        <div className="text-2xl font-bold text-[#00d4aa]">{score.totalScore}/100</div>
+        <div className="text-2xl font-bold text-blue-400">{score.totalScore}/100</div>
       </div>
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
@@ -369,7 +369,7 @@ const ReputationScoreTable: React.FC<{ score: ReputationScore; data: ReputationD
                 <td className="py-3 text-center text-gray-300">{item.weight}</td>
                 <td className="py-3 text-center">
                   <span
-                    className={`font-bold ${item.score >= item.maxScore * 0.8 ? "text-green-400" : item.score >= item.maxScore * 0.5 ? "text-yellow-400" : "text-red-400"}`}
+                    className={`font-bold ${item.score >= item.maxScore * 0.8 ? "text-blue-400" : item.score >= item.maxScore * 0.5 ? "text-yellow-400" : "text-red-400"}`}
                   >
                     {item.score}/{item.maxScore}
                   </span>
@@ -387,6 +387,8 @@ const ReputationScoreTable: React.FC<{ score: ReputationScore; data: ReputationD
 const ReputationScorer: React.FC<{ onBack: () => void }> = ({ onBack }) => {
   const [isGenerating, setIsGenerating] = useState<boolean>(false)
   const [generationComplete, setGenerationComplete] = useState<boolean>(false)
+  const [isMinting, setIsMinting] = useState<boolean>(false)
+  const [mintComplete, setMintComplete] = useState<boolean>(false)
   const [logs, setLogs] = useState<Array<LogEntry>>([])
   const [reputationScore, setReputationScore] = useState<ReputationScore | null>(null)
   const [reputationData, setReputationData] = useState<ReputationData | null>(null)
@@ -409,6 +411,8 @@ const ReputationScorer: React.FC<{ onBack: () => void }> = ({ onBack }) => {
     setLogs([])
     setReputationScore(null)
     setReputationData(null)
+    setGenerationComplete(false)
+    setMintComplete(false)
 
     try {
       addLog("info", "Initializing reputation analysis...")
@@ -469,6 +473,45 @@ const ReputationScorer: React.FC<{ onBack: () => void }> = ({ onBack }) => {
     }
   }
 
+  const handleMintBadge = async (): Promise<void> => {
+    if (!reputationScore || !activeAddress) return
+
+    setIsMinting(true)
+
+    try {
+      addLog("info", "Preparing to mint reputation badge NFT...")
+      await new Promise((resolve) => setTimeout(resolve, 800))
+
+      addLog("info", "Creating badge metadata...")
+      await new Promise((resolve) => setTimeout(resolve, 1000))
+
+      addLog("info", "Uploading metadata to IPFS...")
+      await new Promise((resolve) => setTimeout(resolve, 1200))
+
+      addLog("info", "Submitting NFT creation transaction...")
+      await new Promise((resolve) => setTimeout(resolve, 1500))
+
+      addLog("info", "Waiting for transaction confirmation...")
+      await new Promise((resolve) => setTimeout(resolve, 2000))
+
+      // Simulate successful minting
+      const mockTxId = "MOCK" + Math.random().toString(36).substring(2, 15).toUpperCase()
+      const mockAssetId = Math.floor(Math.random() * 1000000) + 100000
+
+      addLog("success", `Badge NFT minted successfully!`)
+      addLog("success", `Asset ID: ${mockAssetId}`)
+      addLog("success", `Transaction ID: ${mockTxId}`)
+      addLog("success", `Badge represents score: ${reputationScore.totalScore}/100`)
+
+      setMintComplete(true)
+    } catch (error: any) {
+      console.error("[v0] Badge minting error:", error)
+      addLog("error", `Minting failed: ${error.message}`)
+    } finally {
+      setIsMinting(false)
+    }
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -498,43 +541,79 @@ const ReputationScorer: React.FC<{ onBack: () => void }> = ({ onBack }) => {
           {/* Generate Score Container */}
           <div className="bg-white/5 backdrop-blur-xl rounded-2xl p-8 border border-white/10 shadow-2xl min-h-[300px]">
             <div className="flex items-center space-x-3 mb-8">
-              <Star className="w-6 h-6 text-[#00d4aa]" />
-              <h3 className="text-xl font-bold text-white">Generate Reputation Score</h3>
+              <Star className="w-6 h-6 text-blue-400" />
+              <h3 className="text-xl font-bold text-white">
+                {generationComplete ? "Reputation Badge" : "Generate Reputation Score"}
+              </h3>
             </div>
 
             <div className="space-y-6">
-              <div className="text-gray-300 text-sm space-y-2">
-                <p>This will analyze your Algorand wallet to calculate a comprehensive reputation score based on:</p>
-                <ul className="list-disc list-inside space-y-1 ml-4">
-                  <li>Wallet Balance (20%)</li>
-                  <li>Staking/Governance Participation (30%)</li>
-                  <li>Transaction Activity (20%)</li>
-                  <li>dApp Participation (20%)</li>
-                  <li>External Attestations (10%)</li>
-                </ul>
-              </div>
+              {!generationComplete ? (
+                <>
+                  <div className="text-gray-300 text-sm space-y-2">
+                    <p>This will analyze your Algorand wallet to calculate a comprehensive reputation score based on:</p>
+                    <ul className="list-disc list-inside space-y-1 ml-4">
+                      <li>Wallet Balance (20%)</li>
+                      <li>Staking/Governance Participation (30%)</li>
+                      <li>Transaction Activity (20%)</li>
+                      <li>dApp Participation (20%)</li>
+                      <li>External Attestations (10%)</li>
+                    </ul>
+                  </div>
 
-              <GlassButton
-                onClick={handleGenerateReputationScore}
-                disabled={!activeAddress || isGenerating || generationComplete}
-              >
-                {isGenerating ? (
-                  <>
-                    <Loader2 className="w-6 h-6 animate-spin" />
-                    <span>Generating Score...</span>
-                  </>
-                ) : generationComplete ? (
-                  <>
-                    <Check className="w-6 h-6" />
-                    <span>Score Generated</span>
-                  </>
-                ) : (
-                  <>
-                    <TrendingUp className="w-6 h-6" />
-                    <span>Generate Reputation Score</span>
-                  </>
-                )}
-              </GlassButton>
+                  <GlassButton
+                    onClick={handleGenerateReputationScore}
+                    disabled={!activeAddress || isGenerating}
+                  >
+                    {isGenerating ? (
+                      <>
+                        <Loader2 className="w-6 h-6 animate-spin" />
+                        <span>Generating Score...</span>
+                      </>
+                    ) : (
+                      <>
+                        <TrendingUp className="w-6 h-6" />
+                        <span>Generate Reputation Score</span>
+                      </>
+                    )}
+                  </GlassButton>
+                </>
+              ) : (
+                <>
+                  <div className="text-gray-300 text-sm space-y-2">
+                    <p>Your reputation score has been calculated! Mint an NFT badge to showcase your on-chain reputation permanently.</p>
+                    <ul className="list-disc list-inside space-y-1 ml-4">
+                      <li>Permanent proof of reputation score</li>
+                      <li>Transferable NFT badge</li>
+                      <li>Verifiable on-chain credentials</li>
+                      <li>Use across DeFi protocols</li>
+                    </ul>
+                  </div>
+
+                  <GlassButton
+                    onClick={handleMintBadge}
+                    disabled={isMinting || mintComplete}
+                    className={mintComplete ? "bg-green-500/20 border-green-400/30" : ""}
+                  >
+                    {isMinting ? (
+                      <>
+                        <Loader2 className="w-6 h-6 animate-spin" />
+                        <span>Minting Badge...</span>
+                      </>
+                    ) : mintComplete ? (
+                      <>
+                        <Check className="w-6 h-6" />
+                        <span>Badge Minted Successfully</span>
+                      </>
+                    ) : (
+                      <>
+                        <Award className="w-6 h-6" />
+                        <span>Mint Reputation Badge</span>
+                      </>
+                    )}
+                  </GlassButton>
+                </>
+              )}
 
               {!activeAddress && (
                 <div className="text-center text-yellow-400 text-sm">
@@ -552,7 +631,7 @@ const ReputationScorer: React.FC<{ onBack: () => void }> = ({ onBack }) => {
               className="bg-white/5 backdrop-blur-xl rounded-2xl p-8 border border-white/10 shadow-2xl"
             >
               <div className="text-center">
-                <div className="text-6xl font-bold text-[#00d4aa] mb-2">{reputationScore.totalScore}</div>
+                <div className="text-6xl font-bold text-blue-400 mb-2">{reputationScore.totalScore}</div>
                 <div className="text-xl text-gray-300 mb-4">out of 100</div>
                 <div className="text-lg font-semibold text-white">
                   {reputationScore.totalScore >= 80

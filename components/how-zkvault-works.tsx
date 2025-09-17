@@ -1,51 +1,51 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Wallet, Shield, Award, ArrowRight } from "lucide-react"
+import { Wallet, BarChart3, Award, ArrowRight } from "lucide-react"
 
 export default function HowZeyoWorks() {
   const phases = [
     {
       id: "01",
       title: "Setup & Connection",
-      subtitle: "Identity & Activity Selection",
+      subtitle: "Wallet Linking",
       description:
-        "Connect your wallet securely without revealing personal details. Select from various on-chain activities including DAO voting, trading, and staking to establish your reputation baseline.",
+        "Connect your Algorand wallet securely. The system checks your on-chain activity without asking for personal data.",
       details: [
-        "Secure wallet connection with privacy protection",
-        "Activity selection from available DeFi protocols",
-        "Reputation baseline establishment",
+        "Private and secure wallet connection",
+        "No personal info required",
+        "On-chain data fetching only",
       ],
       icon: Wallet,
-      color: "from-orange-400 to-orange-500", // Light orange gradient
+      color: "from-blue-500 to-cyan-500",
     },
     {
       id: "02",
-      title: "Zero-Knowledge Processing",
-      subtitle: "Proof Generation & Verification",
+      title: "Reputation Scoring",
+      subtitle: "On-Chain Activity Analysis",
       description:
-        "Generate cryptographic zero-knowledge proofs of your trading performance and activities. Smart contracts verify these proofs on-chain while maintaining complete data privacy.",
+        "Your wallet activity is analyzed across balance, staking, governance, transactions, and dApp participation to generate a reputation score.",
       details: [
-        "ZK proof generation from activity data",
-        "Cryptographic validation without data exposure",
-        "Smart contract verification on-chain",
+        "Wallet balance, staking, and governance signals",
+        "Transaction activity from the last 3 months",
+        "dApp participation and external attestations",
       ],
-      icon: Shield,
-      color: "from-orange-500 to-orange-600", // Medium orange gradient
+      icon: BarChart3,
+      color: "from-emerald-500 to-teal-500",
     },
     {
       id: "03",
       title: "Credential Minting",
-      subtitle: "Soulbound Badge Creation",
+      subtitle: "Soulbound Reputation Token",
       description:
-        "Mint verifiable, non-transferable credentials that prove your trading skills and contributions. These soulbound badges serve as permanent proof of your achievements without exposing sensitive data.",
+        "Mint a non-transferable Soulbound Token (SBT) that represents your reputation score and achievements directly on Algorand.",
       details: [
-        "Non-transferable credential generation",
-        "Permanent achievement verification",
-        "Privacy-preserving skill validation",
+        "Unique, wallet-bound token",
+        "Verifiable reputation credential",
+        "Cannot be transferred or sold",
       ],
       icon: Award,
-      color: "from-orange-600 to-red-500", // Deep orange to red gradient
+      color: "from-purple-500 to-pink-500",
     },
   ]
 
@@ -59,9 +59,11 @@ export default function HowZeyoWorks() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h1 className="text-4xl md:text-5xl text-white mb-4 tracking-tight">How Zeyo Works ?</h1>
+          <h1 className="text-4xl md:text-5xl text-white mb-4 tracking-tight">
+            How Zeyo Works ?
+          </h1>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed">
-            A comprehensive zero-knowledge proof system for private blockchain interactions
+            A simple and transparent way to build reputation on Algorand using Soulbound Tokens
           </p>
         </motion.div>
 
@@ -73,7 +75,7 @@ export default function HowZeyoWorks() {
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ duration: 1.5, delay: 0.8 }}
-              className="h-full bg-gradient-to-r from-transparent via-orange-500/30 to-transparent origin-center"
+              className="h-full bg-gradient-to-r from-transparent via-gray-600 to-transparent origin-center"
             />
           </div>
 
@@ -86,7 +88,7 @@ export default function HowZeyoWorks() {
               className="group relative z-10"
             >
               {/* Glass Container */}
-              <div className="relative h-[36rem] rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-orange-500/30 transition-all duration-500 hover:-translate-y-2 overflow-hidden">
+              <div className="relative h-[36rem] rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2 overflow-hidden">
                 {/* Gradient Overlay */}
                 <div
                   className={`absolute inset-0 bg-gradient-to-br ${phase.color} opacity-5 group-hover:opacity-10 transition-opacity duration-500`}
@@ -96,8 +98,12 @@ export default function HowZeyoWorks() {
                 <div className="relative z-10 p-10 h-full flex flex-col">
                   {/* Header */}
                   <div className="flex items-center justify-between mb-8">
-                    <span className="text-gray-500 text-sm font-mono tracking-wider">PHASE {phase.id}</span>
-                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${phase.color} p-0.5`}>
+                    <span className="text-gray-500 text-sm font-mono tracking-wider">
+                      PHASE {phase.id}
+                    </span>
+                    <div
+                      className={`w-12 h-12 rounded-xl bg-gradient-to-br ${phase.color} p-0.5`}
+                    >
                       <div className="w-full h-full rounded-xl bg-black/80 flex items-center justify-center">
                         <phase.icon className="w-6 h-6 text-white" />
                       </div>
@@ -128,7 +134,9 @@ export default function HowZeyoWorks() {
                           key={detailIndex}
                           initial={{ opacity: 0, x: -10 }}
                           animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.2 + detailIndex * 0.1 + 0.8 }}
+                          transition={{
+                            delay: index * 0.2 + detailIndex * 0.1 + 0.8,
+                          }}
                           className="flex items-start gap-3 text-sm text-gray-500"
                         >
                           <div
@@ -153,7 +161,7 @@ export default function HowZeyoWorks() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.2 + 1.5 }}
                   >
-                    <ArrowRight className="w-5 h-5 text-orange-500/60" />
+                    <ArrowRight className="w-5 h-5 text-gray-600" />
                   </motion.div>
                 </div>
               )}
@@ -165,7 +173,7 @@ export default function HowZeyoWorks() {
                     initial={{ opacity: 0, scaleY: 0 }}
                     animate={{ opacity: 1, scaleY: 1 }}
                     transition={{ delay: index * 0.2 + 1 }}
-                    className="w-px h-8 bg-gradient-to-b from-orange-500/60 to-orange-800/40"
+                    className="w-px h-8 bg-gradient-to-b from-gray-600 to-gray-800"
                   />
                 </div>
               )}
@@ -183,11 +191,13 @@ export default function HowZeyoWorks() {
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="px-8 py-3 bg-white/10 backdrop-blur-xl border border-white/20 text-white rounded-full font-medium text-sm transition-all duration-300 hover:bg-orange-500/10 hover:border-orange-500/30"
+            className="px-8 py-3 bg-white/10 backdrop-blur-xl border border-white/20 text-white rounded-full font-medium text-sm transition-all duration-300 hover:bg-white/15 hover:border-white/30"
           >
-            Begin Private Trading
+            Mint Your Reputation
           </motion.button>
-          <p className="text-gray-500 text-xs mt-3">Join the future of private blockchain interactions</p>
+          <p className="text-gray-500 text-xs mt-3">
+            Start building your on-chain reputation today
+          </p>
         </motion.div>
       </div>
     </div>

@@ -16,7 +16,7 @@ export default function LandingPage() {
       <section id="home">
         <LampDemo />
       </section>
-      <TrustedBy />
+      {/* <TrustedBy /> */}
       <section id="features">
         <WhyChooseZkVault />
       </section>

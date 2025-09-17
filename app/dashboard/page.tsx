@@ -114,7 +114,7 @@ export default function ZeyoDashboard() {
           <DashNavbar />
           <AnimatePresence mode="wait">
             {currentView === "dashboard" ? (
-              <ZeyoMainContent key="dashboard" themeColor="#22c55e" />
+              <ZeyoMainContent key="dashboard" themeColor="#3b82f6" />
             ) : currentView === "generate-proof" ? (
               <GenerateProofView key="generate-proof" onBack={() => setCurrentView("dashboard")} />
             ) : (
