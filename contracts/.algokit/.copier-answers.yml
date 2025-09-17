@@ -1,9 +1,9 @@
 # Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
 _commit: 0.3.5
 _src_path: gh:algorandfoundation/algokit-typescript-template
-author_email: prithwishchatterjee1277@gmail.com
-author_name: prithwish122
+author_email: manjeetsharma0796@gmail.com
+author_name: manjeet0796
 contract_name: hello_world
 preset_name: starter
-project_name: zeyo
+project_name: rel
 

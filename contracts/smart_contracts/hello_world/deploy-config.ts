@@ -1,5 +1,5 @@
 import { AlgorandClient } from '@algorandfoundation/algokit-utils'
-import { HelloWorldFactory } from '../artifacts/hello_world/HelloWorldClient'
+import { HelloFactory } from '../artifacts/hello_world/HelloClient'
 
 // Below is a showcase of various deployment options you can use in TypeScript Client
 export async function deploy() {
@@ -8,7 +8,7 @@ export async function deploy() {
   const algorand = AlgorandClient.fromEnvironment()
   const deployer = await algorand.account.fromEnvironment('DEPLOYER')
 
-  const factory = algorand.client.getTypedAppFactory(HelloWorldFactory, {
+  const factory = algorand.client.getTypedAppFactory(HelloFactory, {
     defaultSender: deployer.addr,
   })
 
@@ -23,9 +23,13 @@ export async function deploy() {
     })
   }
 
-  const method = 'hello'  
-  const response = await appClient.send.hello({
-    args: { name: 'world' },
+  // const method = 'mint'  
+  // const response = await  appClient.send.mint({
+  //   args: { metaData: "4 monkeys owners", },
+  // })
+  const method = 'getLatestMetaData'  
+  const response = await  appClient.send.getLatestMetaData({
+    // args: { metaData: "4 monkeys owners", },
   })
   console.log(
     `Called ${method} on ${appClient.appClient.appName} (${appClient.appClient.appId}) with name = world, received: ${response.return}`,
