@@ -35,16 +35,16 @@ const ZeyoSidebar = ({
               transition={{ delay: i * 0.1 }}
               className={`group flex items-center justify-between px-4 py-3 rounded-xl cursor-pointer transition-all duration-200 ${
                 item.active
-                  ? "bg-white/10 backdrop-blur-sm text-white border border-[#f96e34]/30 shadow-lg shadow-[#f96e34]/10"
+                  ? "bg-white/10 backdrop-blur-sm text-white border border-[#22c55e]/30 shadow-lg shadow-[#22c55e]/10"
                   : "text-gray-400 hover:text-white hover:bg-white/5"
               }`}
               onClick={item.onClick}
             >
               <div className="flex items-center space-x-3">
-                <item.icon className={`w-5 h-5 ${item.active ? "text-[#f96e34]" : ""}`} />
+                <item.icon className={`w-5 h-5 ${item.active ? "text-[#22c55e]" : ""}`} />
                 <span className="text-sm font-medium">{item.title}</span>
               </div>
-              {item.active && <ChevronRight className="w-4 h-4 text-[#f96e34]" />}
+              {item.active && <ChevronRight className="w-4 h-4 text-[#22c55e]" />}
             </motion.div>
           ))}
         </div>

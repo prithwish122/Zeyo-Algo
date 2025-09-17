@@ -54,7 +54,7 @@ const WalletButton = () => {
           flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-200
           ${activeWallet 
             ? 'bg-green-100 text-green-800 hover:bg-green-200 border border-green-300' 
-            : 'bg-blue-600 text-white hover:bg-blue-700 border border-blue-600'
+            : 'bg-green-600 text-white hover:bg-green-700 border border-green-600'
           }
         `}
         aria-expanded={isOpen}
@@ -99,10 +99,10 @@ const WalletButton = () => {
           ref={dropdownRef}
           role="dialog"
           aria-labelledby="wallet-menu-title"
-          className="absolute right-0 top-full mt-2 w-80 bg-white rounded-lg shadow-xl border border-gray-200 z-50"
+          className="absolute right-0 top-full mt-2 w-80 bg-black/90 backdrop-blur-xl rounded-lg shadow-xl border border-white/20 z-50"
         >
           <div className="p-4">
-            <h2 id="wallet-menu-title" className="text-lg font-semibold mb-4">
+            <h2 id="wallet-menu-title" className="text-lg font-semibold mb-4 text-white">
               {activeWallet ? 'Connected Wallet' : 'Connect Wallet'}
             </h2>
             
@@ -169,19 +169,19 @@ const WalletOption = ({
     <button
       onClick={handleConnect}
       disabled={connecting}
-      className="w-full flex items-center space-x-3 p-3 rounded-lg border border-gray-200 hover:border-blue-300 hover:bg-blue-50 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+      className="w-full flex items-center space-x-3 p-3 rounded-lg border border-white/20 hover:border-green-400/50 hover:bg-green-500/10 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
     >
       <img
         src={wallet.metadata.icon}
         alt=""
         className="w-8 h-8"
       />
-      <span className="font-medium text-gray-900">
+      <span className="font-medium text-white">
         {wallet.metadata.name}
       </span>
       {connecting && (
         <div className="ml-auto">
-          <div className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+          <div className="w-4 h-4 border-2 border-green-500 border-t-transparent rounded-full animate-spin"></div>
         </div>
       )}
     </button>
@@ -203,31 +203,31 @@ const ConnectedWallet = ({
   return (
     <div className="space-y-4">
       {/* Wallet header */}
-      <div className="flex items-center space-x-3 p-3 bg-green-50 rounded-lg border border-green-200">
+      <div className="flex items-center space-x-3 p-3 bg-green-500/20 backdrop-blur-sm rounded-lg border border-green-400/30">
         <img
           src={wallet.metadata.icon}
           alt=""
           className="w-8 h-8"
         />
-        <span className="font-medium text-green-800">{wallet.metadata.name}</span>
+        <span className="font-medium text-green-200">{wallet.metadata.name}</span>
         <div className="ml-auto">
-          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+          <div className="w-2 h-2 bg-green-400 rounded-full"></div>
         </div>
       </div>
       
       {/* Account selector */}
       {wallet.accounts.length > 1 && (
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-300 mb-2">
             Select Account
           </label>
           <select
             value={wallet.activeAccount?.address || ''}
             onChange={(e) => wallet.setActiveAccount(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full p-2 bg-white/10 border border-white/20 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-white backdrop-blur-sm"
           >
             {wallet.accounts.map((account) => (
-              <option key={account.address} value={account.address}>
+              <option key={account.address} value={account.address} className="bg-gray-800 text-white">
                 {account.name}
               </option>
             ))}
@@ -237,14 +237,14 @@ const ConnectedWallet = ({
       
       {/* Account details */}
       {wallet.activeAccount && (
-        <div className="space-y-2 p-3 bg-gray-50 rounded-lg">
+        <div className="space-y-2 p-3 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
           <div>
-            <span className="text-sm text-gray-600">Account Name:</span>
-            <p className="font-medium text-gray-900">{wallet.activeAccount.name}</p>
+            <span className="text-sm text-gray-400">Account Name:</span>
+            <p className="font-medium text-white">{wallet.activeAccount.name}</p>
           </div>
           <div>
-            <span className="text-sm text-gray-600">Address:</span>
-            <p className="font-mono text-sm text-gray-900 break-all">
+            <span className="text-sm text-gray-400">Address:</span>
+            <p className="font-mono text-sm text-gray-200 break-all">
               {wallet.activeAccount.address}
             </p>
           </div>
@@ -254,7 +254,7 @@ const ConnectedWallet = ({
       {/* Disconnect button */}
       <button 
         onClick={handleDisconnect}
-        className="w-full py-2 px-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-200 font-medium"
+        className="w-full py-2 px-4 bg-red-600/80 backdrop-blur-sm text-white rounded-lg hover:bg-red-600 transition-colors duration-200 font-medium border border-red-500/30"
       >
         Disconnect Wallet
       </button>

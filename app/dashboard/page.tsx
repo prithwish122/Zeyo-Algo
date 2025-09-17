@@ -85,7 +85,7 @@ export default function ZeyoDashboard() {
               {/* Content */}
               <div className="text-center space-y-6">
                 <div>
-                  <h2 className="text-2xl font-bold text-white mb-2">Connect you Wallet</h2>
+                  <h2 className="text-2xl font-bold text-white mb-2">Connect your Wallet</h2>
                 </div>
                 <div className="flex items-center justify-center space-x-4">
                   {/* <ConnectButton /> */}
@@ -114,7 +114,7 @@ export default function ZeyoDashboard() {
           <DashNavbar />
           <AnimatePresence mode="wait">
             {currentView === "dashboard" ? (
-              <ZeyoMainContent key="dashboard" themeColor="#f96e34" />
+              <ZeyoMainContent key="dashboard" themeColor="#22c55e" />
             ) : currentView === "generate-proof" ? (
               <GenerateProofView key="generate-proof" onBack={() => setCurrentView("dashboard")} />
             ) : (
